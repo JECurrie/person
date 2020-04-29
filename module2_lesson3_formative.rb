@@ -1,0 +1,48 @@
+#Write a Person class that will maintain state thru instance and class attributes and provide access thru instance and class methods.
+class Person
+  #have a first_name and last_name attribute with public accessors
+  attr_accessor :first_name, :last_name
+
+  #have a class attribute called `people` that holds an array of objects
+  @@people = []
+
+  #have an `initialize` method to initialize each instance
+  def initialize(first_name,last_name) #should take 2 parameters for first_name and last_name CONSTRUCTOR
+    #assign those parameters to instance variables
+    #add the created instance (self) to people class variable
+    @first_name = first_name
+    @last_name  = last_name
+    #add the created instance (self) to people class variable
+    @@people.push(self)    
+  end
+
+  #have a `search` method to locate all people with a matching `last_name`
+  def self.search(last_name)
+    #accept a `last_name` parameter
+#    puts self
+    ##search(@last_name).size
+    #search the `people` class attribute for instances with the same `last_name`
+    #return a collection of matching instances
+    @@people.select {|p| p.last_name == last_name}    
+  end
+
+  #have a `to_s` method to return a formatted string of the person's name
+  def to_s
+    #return a formatted string as `first_name(space)last_name`
+    "#{first_name} #{last_name}"
+  end
+end
+
+p1 = Person.new("John", "Smith")
+#p p1.instance_variables # [:@name, :@age]
+#puts p1.get_info # => Name: John, age: Smith
+#=begin
+p2 = Person.new("John", "Doe")
+p3 = Person.new("Jane", "Smith")
+p4 = Person.new("Cool", "Dude")
+#=end
+puts Person.search("Smith")
+
+# Should print out
+# => John Smith
+# => Jane Smith
